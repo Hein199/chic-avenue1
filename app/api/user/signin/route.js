@@ -1,14 +1,12 @@
-import User from "@/models/User"; // Ensure the correct path to your User model
+import User from "@/models/User";
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt"; // Import bcrypt for comparing passwords
+import bcrypt from "bcrypt";
 
-// POST handler for user sign-in
 export async function POST(request) {
     try {
         const body = await request.json();
         const { email, password } = body;
 
-        // Validate the request body
         if (!email || !password) {
             return NextResponse.json(
                 { message: "Missing required fields" },
@@ -16,7 +14,6 @@ export async function POST(request) {
             );
         }
 
-        // Find the user by email
         const user = await User.findOne({ email });
         if (!user) {
             return NextResponse.json(
@@ -25,7 +22,6 @@ export async function POST(request) {
             );
         }
 
-        // Compare the provided password with the stored hashed password
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return NextResponse.json(
@@ -34,11 +30,10 @@ export async function POST(request) {
             );
         }
 
-        // Return the user data along with a success message
         return NextResponse.json(
             {
-                message: "User signed in successfully!",  // Success message
-                user: {  // Return the user data
+                message: "User signed in successfully!",
+                user: {
                     _id: user._id,
                     username: user.username,
                     email: user.email,

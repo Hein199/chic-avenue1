@@ -1,13 +1,12 @@
-import User from "@/models/User"; // Ensure the correct path to your User model
+import User from "@/models/User";
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt"; // Import bcrypt for hashing passwords
+import bcrypt from "bcrypt";
 
 export async function POST(request) {
     try {
         const body = await request.json();
         const { userId, username, email, phoneNumber, newPassword } = body;
 
-        // Validate the request body
         if (!userId || !username || !email || !phoneNumber) {
             return NextResponse.json(
                 { message: "Missing required fields" },
@@ -15,7 +14,6 @@ export async function POST(request) {
             );
         }
 
-        // Find the user by ID
         const user = await User.findById(userId);
         if (!user) {
             return NextResponse.json(
@@ -24,25 +22,20 @@ export async function POST(request) {
             );
         }
 
-        // Update user details
         user.username = username;
-        user.email = email.toLowerCase(); // Ensure email is stored in lowercase
+        user.email = email.toLowerCase();
         user.phoneNumber = phoneNumber;
 
-        // If a new password is provided, hash it and update the user's password
         if (newPassword) {
-            // Hash the new password
-            user.password = await bcrypt.hash(newPassword, 10); // 10 is the salt rounds
+            user.password = await bcrypt.hash(newPassword, 10);
         }
 
-        // Save the updated user to the database
         await user.save();
 
-        // Return the updated user data along with a success message
         return NextResponse.json(
             {
-                message: "Profile updated successfully!",  // Success message
-                user: {  // Return the updated user data
+                message: "Profile updated successfully!",
+                user: {
                     _id: user._id,
                     username: user.username,
                     email: user.email,

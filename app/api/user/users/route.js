@@ -1,12 +1,10 @@
-import User from "@/models/User"; // Ensure the correct path to your User model
+import User from "@/models/User";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
     try {
-        // Fetch all users from the database
         const users = await User.find();
 
-        // Return the users in the response
         return NextResponse.json(
             {
                 message: "Users retrieved successfully!",

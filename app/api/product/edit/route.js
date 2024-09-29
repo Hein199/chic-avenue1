@@ -1,11 +1,10 @@
-import Product from "@/models/Product"; // Ensure the correct path to your Product model
+import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 
 export async function PUT(request) {
     try {
         const { productId, name, price, description, image, userId } = await request.json();
 
-        // Validate the request body
         if (!productId || !name || !price || !description || !image || !userId) {
             return NextResponse.json(
                 { message: "Missing required fields" },
@@ -13,7 +12,6 @@ export async function PUT(request) {
             );
         }
 
-        // Find the product by ID
         const product = await Product.findById(productId);
         if (!product) {
             return NextResponse.json(
@@ -22,7 +20,6 @@ export async function PUT(request) {
             );
         }
 
-        // Check if the user is authorized to edit the product
         if (product.userId.toString() !== userId) {
             return NextResponse.json(
                 { message: "Unauthorized to edit this product" },
@@ -30,20 +27,17 @@ export async function PUT(request) {
             );
         }
 
-        // Update the product fields
         product.name = name;
         product.price = price;
         product.description = description;
         product.image = image;
 
-        // Save the updated product
         await product.save();
 
-        // Return the updated product data along with a success message
         return NextResponse.json(
             {
-                message: "Product updated successfully!",  // Success message
-                product: {  // Return the updated product data
+                message: "Product updated successfully!",
+                product: {
                     _id: product._id,
                     name: product.name,
                     price: product.price,

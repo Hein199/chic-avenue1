@@ -1,4 +1,4 @@
-import Order from "@/models/Order";
+import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
@@ -8,29 +8,32 @@ export async function GET(request, { params }) {
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return NextResponse.json(
-                { message: "Invalid user ID" },
+                { message: "Invalid product ID" },
                 { status: 400 }
             );
         }
 
-        const orders = await Order.find({ userId: id }).populate("products.productId");
+        const product = await Product.findById(id);
 
-        if (!orders || orders.length === 0) {
+        if (!product) {
             return NextResponse.json(
-                { message: "No orders found for this user" },
+                { message: "Product not found" },
                 { status: 404 }
             );
         }
 
         return NextResponse.json(
-            { message: "Orders retrieved successfully", orders },
+            {
+                message: "Product retrieved successfully!",
+                product: product,
+            },
             { status: 200 }
         );
 
     } catch (error) {
-        console.error("Error fetching orders:", error);
+        console.error("Error retrieving product details:", error);
         return NextResponse.json(
-            { message: "Failed to retrieve orders", error: error.message },
+            { message: "Failed to retrieve product details", error: error.message },
             { status: 500 }
         );
     }

@@ -1,4 +1,4 @@
-import Product from "@/models/Product"; // Ensure the correct path to your Product model
+import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
@@ -6,7 +6,6 @@ export async function POST(request) {
         const body = await request.json();
         const { name, price, description, image, userId } = body;
 
-        // Validate the request body
         if (!name || !price || !description || !image || !userId) {
             return NextResponse.json(
                 { message: "Missing required fields" },
@@ -14,23 +13,20 @@ export async function POST(request) {
             );
         }
 
-        // Create a new product
         const newProduct = new Product({
             name,
             price,
             description,
             image,
-            userId, // Use the user's ID from the request body
+            userId,
         });
 
-        // Save the product to the database
         await newProduct.save();
 
-        // Return the saved product data along with a success message
         return NextResponse.json(
             {
-                message: "Product created successfully!",  // Success message
-                product: {  // Return the product data
+                message: "Product created successfully!",
+                product: {
                     _id: newProduct._id,
                     name: newProduct.name,
                     price: newProduct.price,

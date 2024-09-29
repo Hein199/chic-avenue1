@@ -1,4 +1,4 @@
-import User from "@/models/User"; // Ensure the correct path to your User model
+import User from "@/models/User";
 import { NextResponse } from "next/server";
 
 export async function DELETE(request) {
@@ -6,7 +6,6 @@ export async function DELETE(request) {
         const body = await request.json();
         const { userId } = body;
 
-        // Validate the request body
         if (!userId) {
             return NextResponse.json(
                 { message: "Missing required field: userId" },
@@ -14,7 +13,6 @@ export async function DELETE(request) {
             );
         }
 
-        // Find the user by ID and delete
         const deletedUser = await User.findByIdAndDelete(userId);
         if (!deletedUser) {
             return NextResponse.json(
@@ -23,7 +21,6 @@ export async function DELETE(request) {
             );
         }
 
-        // Return a success message
         return NextResponse.json(
             { message: "User account deleted successfully!" },
             { status: 200 }

@@ -1,12 +1,10 @@
-import Product from "@/models/Product"; // Ensure the correct path to your Product model
+import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
     try {
-        // Fetch all products from the database
         const products = await Product.find();
 
-        // Return the products in the response
         return NextResponse.json(
             {
                 message: "Products retrieved successfully!",

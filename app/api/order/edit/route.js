@@ -1,12 +1,11 @@
-import Order from "@/models/Order"; // Ensure the correct path to your Order model
-import Product from "@/models/Product"; // Ensure the correct path to your Product model
+import Order from "@/models/Order";
+import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 
 export async function PUT(request) {
     try {
         const { orderId, userId, products, shippingAddress } = await request.json();
 
-        // Validate the request body
         if (!orderId || !userId || !products || products.length === 0 || !shippingAddress) {
             return NextResponse.json(
                 { message: "Missing required fields" },
@@ -14,7 +13,6 @@ export async function PUT(request) {
             );
         }
 
-        // Find the order by ID
         const order = await Order.findById(orderId);
         if (!order) {
             return NextResponse.json(
@@ -23,7 +21,6 @@ export async function PUT(request) {
             );
         }
 
-        // Ensure the user is authorized to edit the order
         if (order.userId.toString() !== userId) {
             return NextResponse.json(
                 { message: "Unauthorized to edit this order" },
@@ -31,7 +28,6 @@ export async function PUT(request) {
             );
         }
 
-        // Recalculate the totalAmount based on the updated products
         let totalAmount = 0;
 
         for (const item of products) {
@@ -45,19 +41,16 @@ export async function PUT(request) {
             totalAmount += product.price;
         }
 
-        // Update the order fields
         order.products = products;
         order.shippingAddress = shippingAddress;
         order.totalAmount = totalAmount;
 
-        // Save the updated order
         await order.save();
 
-        // Return the updated order data along with a success message
         return NextResponse.json(
             {
-                message: "Order updated successfully!",  // Success message
-                order: {  // Return the updated order data
+                message: "Order updated successfully!",
+                order: {
                     _id: order._id,
                     userId: order.userId,
                     products: order.products,

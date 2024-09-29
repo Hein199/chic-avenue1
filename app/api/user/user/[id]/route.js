@@ -1,12 +1,10 @@
-import User from "@/models/User"; // Ensure the correct path to your User model
+import User from "@/models/User";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
     try {
-        // Extract userId from the URL parameters
         const { id } = params;
 
-        // Validate userId
         if (!id) {
             return NextResponse.json(
                 { message: "User ID is required" },
@@ -14,10 +12,8 @@ export async function GET(request, { params }) {
             );
         }
 
-        // Find the user by their ID
-        const user = await User.findById(id).select("-password"); // Exclude password field
+        const user = await User.findById(id).select("-password");
 
-        // If user not found
         if (!user) {
             return NextResponse.json(
                 { message: "User not found" },
@@ -25,7 +21,6 @@ export async function GET(request, { params }) {
             );
         }
 
-        // Return user information
         return NextResponse.json(
             { user },
             { status: 200 }

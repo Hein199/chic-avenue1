@@ -1,14 +1,12 @@
-import User from "@/models/User"; // Ensure the correct path to your User model
+import User from "@/models/User";
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt"; // Import bcrypt for hashing passwords
+import bcrypt from "bcrypt";
 
-// POST handler for user registration
 export async function POST(request) {
     try {
         const body = await request.json();
         const { username, email, phoneNumber, password } = body;
 
-        // Validate the request body
         if (!username || !email || !phoneNumber || !password) {
             return NextResponse.json(
                 { message: "Missing required fields" },
@@ -16,7 +14,6 @@ export async function POST(request) {
             );
         }
 
-        // Check if the user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return NextResponse.json(
@@ -25,25 +22,21 @@ export async function POST(request) {
             );
         }
 
-        // Hash the password before saving
-        const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create a new user
         const newUser = new User({
             username,
             email,
             phoneNumber,
-            password: hashedPassword, // Store the hashed password
+            password: hashedPassword,
         });
 
-        // Save the user to the database
         await newUser.save();
 
-        // Return the saved user data along with a success message
         return NextResponse.json(
             {
-                message: "User registered successfully!",  // Success message
-                user: {  // Return the user data
+                message: "User registered successfully!",
+                user: {
                     _id: newUser._id,
                     username: newUser.username,
                     email: newUser.email,

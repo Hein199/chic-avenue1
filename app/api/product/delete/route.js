@@ -1,11 +1,10 @@
-import Product from "@/models/Product"; // Ensure the correct path to your Product model
+import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 
 export async function DELETE(request) {
     try {
         const { productId, userId } = await request.json();
 
-        // Validate the request body
         if (!productId || !userId) {
             return NextResponse.json(
                 { message: "Missing required fields" },
@@ -13,7 +12,6 @@ export async function DELETE(request) {
             );
         }
 
-        // Find the product by ID
         const product = await Product.findById(productId);
         if (!product) {
             return NextResponse.json(
@@ -22,7 +20,6 @@ export async function DELETE(request) {
             );
         }
 
-        // Check if the user is authorized to delete the product
         if (product.userId.toString() !== userId) {
             return NextResponse.json(
                 { message: "Unauthorized to delete this product" },
@@ -30,10 +27,8 @@ export async function DELETE(request) {
             );
         }
 
-        // Delete the product
         await Product.deleteOne({ _id: productId });
 
-        // Return a success message
         return NextResponse.json(
             { message: "Product deleted successfully!" },
             { status: 200 }
