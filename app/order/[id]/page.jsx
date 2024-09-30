@@ -5,7 +5,7 @@ import TextareaForm from "./components/form";
 
 const OrderPage = async ({ params }) => {
   const response = await fetch(
-    `http://127.0.0.1:3000/api/product/product/${params.id}/`
+    `https://chic-avenue1.vercel.app/api/product/product/${params.id}/`
   );
   console.debug(response);
   const { product } = await response.json();

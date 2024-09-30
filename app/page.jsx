@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 
 const AllProducts = async () => {
-  const response = await fetch("http://127.0.0.1:3000/api/product/products");
+  const response = await fetch("https://chic-avenue1.vercel.app/api/product/products");
   const products = await response.json();
   console.log(products);
   return (
