@@ -15,7 +15,7 @@ import Link from "next/link";
 const AllProducts = async () => {
   // const id = getId();
   const response = await fetch(
-    "http://localhost:3000//api/product/user?userId=" + getId()
+    "https://chic-avenue1.vercel.app//api/product/user?userId=" + getId()
   );
   const { products } = await response.json();
   return (

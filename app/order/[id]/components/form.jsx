@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../../../components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,8 +11,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
+} from "../../../../components/ui/form";
+import { Textarea } from "../../../../components/ui/textarea";
 
 function TextareaForm({ productId, userId }) {
   const form = useForm({});
@@ -21,7 +21,7 @@ function TextareaForm({ productId, userId }) {
   function onSubmit(data) {
     console.log(data, productId, userId);
     try {
-      fetch("http://localhost:3000/api/order/create", {
+      fetch("https://chic-avenue1.vercel.app/api/order/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

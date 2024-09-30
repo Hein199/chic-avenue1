@@ -2,7 +2,7 @@
 
 const DeleteButton = ({ orderId, userId }) => {
   const deleteOrder = async () => {
-    const response = await fetch(`http://localhost:3000/api/order/delete`, {
+    const response = await fetch(`https://chic-avenue1.vercel.app/api/order/delete`, {
       method: 'DELETE',
       body: JSON.stringify({ orderId, userId }),
     });

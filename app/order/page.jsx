@@ -14,7 +14,7 @@ import DeleteButton from "./components/delete";
 const MyOrdersPage = async () => {
   const cookieStore = cookies();
   const id = cookieStore.get("id")?.value;
-  const response = await fetch(`http://localhost:3000/api/order/user/${id}`);
+  const response = await fetch(`https://chic-avenue1.vercel.app/api/order/user/${id}`);
   const data = await response.json();
   const orders = data.orders;
 

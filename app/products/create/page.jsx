@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 
-const createProduct = async (data) => {
+const CreateProductPage = (data) => {
   const form = useForm();
   const router = useRouter();
 
@@ -92,4 +92,4 @@ const createProduct = async (data) => {
   );
 };
 
-export default createProduct;
+export default CreateProductPage;

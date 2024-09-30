@@ -20,7 +20,7 @@ const UserProfileForm = ({ userData, id }) => {
   const router = useRouter();
 
   const deleteProfile = async () => {
-    const response = await fetch(`http://localhost:3000/api/user/delete`, {
+    const response = await fetch(`https://chic-avenue1.vercel.app/api/user/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

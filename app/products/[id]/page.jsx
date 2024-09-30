@@ -6,7 +6,7 @@ const ProductDetailedPage = async ({ params }) => {
   const cookieStore = cookies()
   const userId = cookieStore.get('id').value
   const response = await fetch(
-    `http://localhost:3000/api/product/product/${id}`
+    `https://chic-avenue1.vercel.app/api/product/product/${id}`
   );
   const { product } = await response.json();
 

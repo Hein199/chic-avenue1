@@ -2,9 +2,9 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { Input } from "../../../../components/ui/input";
+import { Label } from "../../../../components/ui/label";
+import { Button } from "../../../../components/ui/button";
 import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 
@@ -21,7 +21,7 @@ const ProductForm = ({ data, userId }) => {
   const router = useRouter();
 
   const deleteProduct = async () => {
-    const response = await fetch(`http://localhost:3000/api/product/delete`, {
+    const response = await fetch(`https://chic-avenue1.vercel.app/api/product/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const ProductForm = ({ data, userId }) => {
   };
 
   const onSubmit = async (data) => {
-    const response = await fetch(`http://localhost:3000/api/product/edit`, {
+    const response = await fetch(`https://chic-avenue1.vercel.app/api/product/edit`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
