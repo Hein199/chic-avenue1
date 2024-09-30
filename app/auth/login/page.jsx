@@ -8,7 +8,7 @@ import { Button } from "../../../components/ui/button";
 import { useRouter } from "next/navigation";
 import { setCookie } from 'cookies-next';
 
-const userLogin = async (data) => {
+const UserLogin = (data) => {
   const form = useForm();
   const router = useRouter();
 
@@ -69,4 +69,4 @@ const userLogin = async (data) => {
   );
 };
 
-export default userLogin;
+export default UserLogin;

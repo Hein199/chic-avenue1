@@ -7,7 +7,7 @@ import { Label } from "../../../components/ui/label"
 import { Button } from "../../../components/ui/button";
 import { useRouter } from "next/navigation";
 
-const userRegister = async (data) => {
+const UserRegister = (data) => {
   const form = useForm();
   const router = useRouter();
 
@@ -85,4 +85,4 @@ const userRegister = async (data) => {
   );
 };
 
-export default userRegister;
+export default UserRegister;
