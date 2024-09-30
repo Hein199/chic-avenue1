@@ -102,7 +102,7 @@ const UserProfileForm = ({ userData, id }) => {
         <Input
           type="password"
           id="newPassword"
-          placeholder="Phone Number"
+          placeholder="New Pasword"
           {...form.register("newPassword")}
           required
         />
