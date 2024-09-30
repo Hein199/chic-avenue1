@@ -1,6 +1,5 @@
 import Order from "@/models/Order";
 import { NextResponse } from "next/server";
-import mongoose from "mongoose";
 
 export async function DELETE(request) {
     try {

@@ -1,5 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import { cookies } from "next/headers";
+import Link from "next/link";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,12 +20,31 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const cookieStore = cookies();
+  const id = cookieStore.get("id");
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} relative antialiased`}
       >
-        {children}
+        <nav className="fixed w-full z-30 bg-white flex justify-between h-10 items-center px-8 border-b shadow-sm">
+          <Link href="/">Chic Avenue Store</Link>
+          <div>
+            {id ? (
+              <div className="space-x-2">
+                <Link href="/order">My Orders</Link>
+                <Link href="/products">My Products</Link>
+                <Link href="/profile">Profile</Link>
+              </div>
+            ) : (
+              <div className="space-x-2">
+                <Link href="/auth/login">Login</Link>
+                <Link href="/auth/register">Register</Link>
+              </div>
+            )}
+          </div>
+        </nav>
+        <div className="pt-10">{children}</div>
       </body>
     </html>
   );
