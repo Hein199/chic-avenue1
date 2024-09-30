@@ -53,3 +53,5 @@ const AllProducts = async () => {
 };
 
 export default AllProducts;
+
+export const fetchCache = 'force-no-store';

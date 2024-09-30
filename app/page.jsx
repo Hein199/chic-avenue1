@@ -12,7 +12,7 @@ const AllProducts = async () => {
         Welcome to the Chic Avenue Store
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {products.products.map((product) => {
+        {products.products?.map((product) => {
           return (
             <Card key={product._id}>
               <Link href={`/order/${product._id}`}>
@@ -39,3 +39,5 @@ const AllProducts = async () => {
 };
 
 export default AllProducts;
+
+export const fetchCache = 'force-no-store';

@@ -51,3 +51,5 @@ const MyOrdersPage = async () => {
 };
 
 export default MyOrdersPage;
+
+export const fetchCache = 'force-no-store';
