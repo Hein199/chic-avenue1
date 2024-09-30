@@ -30,7 +30,7 @@ const UserLogin = (data) => {
         alert("User login successfully");
         router.push("/auth/login");
       } else {
-        alert("User already exists");
+        alert("User not found");
       }
     } catch (error) {
       console.error("An unexpected error happened occurred:", error);
